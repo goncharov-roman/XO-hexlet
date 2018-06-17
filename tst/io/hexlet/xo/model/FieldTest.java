@@ -1,14 +1,11 @@
 package io.hexlet.xo.model;
 
+import io.hexlet.xo.model.exceptions.AlreadyOccupiedException;
 import io.hexlet.xo.model.exceptions.InvalidBoardSizeException;
 import io.hexlet.xo.model.exceptions.InvalidPointException;
 import org.junit.Test;
 
-import java.awt.*;
-import java.util.Random;
-
 import static org.junit.Assert.*;
-
 
 public class FieldTest {
 
@@ -32,6 +29,18 @@ public class FieldTest {
     }
 
     @Test
+    public void testSetFigureWhenAlreadyOccupied() throws Exception {
+        final Field field = new Field(3);
+        final Point inputPoint = new Point(0, 0);
+        field.setFigure(inputPoint, Figure.O);
+
+        try {
+            field.setFigure(inputPoint, Figure.O);
+            fail();
+        } catch (final AlreadyOccupiedException e) {}
+    }
+
+    @Test
     public void testGetFigureWhenFigureIsNotSet() throws Exception {
         final Field field = new Field(3);
         final Point inputPoint = new Point(0, 0);
@@ -42,7 +51,7 @@ public class FieldTest {
     }
 
     @Test
-    public void testGetFigureWhenXIsLessThenZero() throws Exception {
+    public void testGetFigureWhenXIsLessThanZero() throws Exception {
         final Field field = new Field(3);
         final Point inputPoint = new Point(-1, 0);
 
@@ -53,7 +62,7 @@ public class FieldTest {
     }
 
     @Test
-    public void testGetFigureWhenYIsLessThenZero() throws Exception {
+    public void testGetFigureWhenYIsLessThanZero() throws Exception {
         final Field field = new Field(3);
         final Point inputPoint = new Point(0, -1);
 
@@ -64,7 +73,7 @@ public class FieldTest {
     }
 
     @Test
-    public void testGetFigureWhenXIsMoreThenSize() throws Exception {
+    public void testGetFigureWhenXIsMoreThanSize() throws Exception {
         final Field field = new Field(3);
         final Point inputPoint = new Point(field.getSize() + 1, 0);
 
@@ -75,7 +84,7 @@ public class FieldTest {
     }
 
     @Test
-    public void testGetFigureWhenYIsMoreThenSize() throws Exception {
+    public void testGetFigureWhenYIsMoreThanSize() throws Exception {
         final Field field = new Field(3);
         final Point inputPoint = new Point(0, field.getSize() + 1);
 
@@ -85,23 +94,4 @@ public class FieldTest {
         } catch (final InvalidPointException e) {}
     }
 
-    @Test
-    public void testCustomField() throws Exception {
-        final int defaultBoardSize = 3;
-        Random randomGenerator = new Random();
-        for (int i = 100 ; i>0 ; i--) {
-            final int fieldSize = randomGenerator.nextInt(50) + defaultBoardSize;
-            final Field field = new Field(fieldSize);
-            assertEquals(fieldSize, field.getSize());
-        }
-    }
-
-    @Test(expected=InvalidBoardSizeException.class)
-    public void testCustomFieldError() throws Exception {
-        Random randomGenerator = new Random();
-        for (int i = 100 ; i>0 ; i--) {
-            final int fieldSize = randomGenerator.nextInt(50) - 50;
-            final Field field = new Field(fieldSize);
-        }
-    }
 }

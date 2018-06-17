@@ -1,6 +1,7 @@
 package io.hexlet.xo.model;
 
 
+import io.hexlet.xo.model.exceptions.AlreadyOccupiedException;
 import io.hexlet.xo.model.exceptions.InvalidBoardSizeException;
 import io.hexlet.xo.model.exceptions.InvalidPointException;
 
@@ -16,7 +17,7 @@ public class Field {
     private final int fieldSize;
 
     public Field(final int fieldSize) throws InvalidBoardSizeException {
-        if (fieldSize < MIN_SIZE ) {
+        if (fieldSize < MIN_SIZE) {
             throw new InvalidBoardSizeException();
         }
         else {
@@ -37,19 +38,23 @@ public class Field {
         return field[point.getX()][point.getY()];
     }
 
-    public void setFigure(final Point point, final Figure figure) throws InvalidPointException {
+    public void setFigure(final Point point, final Figure figure) throws InvalidPointException,
+                                                                    AlreadyOccupiedException {
         if (!checkPoint(point)) {
             throw new InvalidPointException();
+        }
+        if (field[point.getX()][point.getY()] != null) {
+            throw new AlreadyOccupiedException();
         }
         field[point.getX()][point.getY()] = figure;
     }
 
     private boolean checkPoint(final Point point) {
-        return checkCoordinate(point.getX(), field.length) && checkCoordinate(point.getY(), field[point.getX()].length);
+        return checkCoordinate(point.getX()) && checkCoordinate(point.getY());
     }
 
-    private boolean checkCoordinate(final int coordinate, final int maxCoordinate) {
-        return coordinate >= MIN_COORDINATE && coordinate < maxCoordinate;
+    private boolean checkCoordinate(final int coordinate) {
+        return coordinate >= MIN_COORDINATE && coordinate < fieldSize;
     }
 
 }
