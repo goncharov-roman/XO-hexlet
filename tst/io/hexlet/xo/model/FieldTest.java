@@ -10,6 +10,23 @@ import static org.junit.Assert.*;
 public class FieldTest {
 
     @Test
+    public void testFieldSize() throws Exception {
+        final int inputFieldSize = 3;
+        final Field field = new Field(inputFieldSize);
+
+        assertEquals(inputFieldSize, field.getSize());
+    }
+
+    @Test
+    public void testIncorrectFieldSize() throws Exception {
+        final int inputFieldSize = -1;
+        try {
+            new Field(inputFieldSize);
+            fail();
+        } catch ( final InvalidBoardSizeException e) {}
+    }
+
+    @Test
     public void testGetSize() throws Exception {
         final Field field = new Field(3);
 
