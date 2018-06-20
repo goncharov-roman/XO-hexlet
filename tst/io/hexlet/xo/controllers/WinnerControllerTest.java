@@ -51,10 +51,10 @@ public class WinnerControllerTest {
     @Test
     public void testGetWinnerWhenWinnerCustomRow() throws Exception {
         final WinnerController winnerController = new WinnerController();
-        final int fieldSize = new Random().nextInt(50);
+        final int fieldSize = new Random().nextInt(50) + 3;
         for (int i = 0; i < fieldSize; i++) {
             final Field field = new Field(fieldSize);
-            for (int j=0 ; j<fieldSize; j++) {
+            for (int j = 0 ; j < fieldSize; j++) {
                 field.setFigure(new Point(i, j), Figure.X);
             }
             assertEquals(Figure.X, winnerController.getWinner(field));
@@ -64,11 +64,11 @@ public class WinnerControllerTest {
     @Test
     public void testGetWinnerWhenNoWinnerCustomRow() throws Exception {
         final WinnerController winnerController = new WinnerController();
-        final int fieldSize = new Random().nextInt(50);
+        final int fieldSize = new Random().nextInt(50) + 3;
         for (int i = 0; i < fieldSize; i++) {
             final Field field = new Field(fieldSize);
             field.setFigure(new Point(i, 0), Figure.O);
-            for (int j=1 ; j<fieldSize; j++) {
+            for (int j = 1 ; j < fieldSize; j++) {
                 field.setFigure(new Point(i, j), Figure.X);
             }
             assertNull(winnerController.getWinner(field));
@@ -102,10 +102,10 @@ public class WinnerControllerTest {
     @Test
     public void testGetWinnerWhenWinnerCustomColumn() throws Exception {
         final WinnerController winnerController = new WinnerController();
-        final int fieldSize = new Random().nextInt(50);
+        final int fieldSize = new Random().nextInt(50) + 3;
         for (int i = 0; i < fieldSize; i++) {
             final Field field = new Field(fieldSize);
-            for (int j=0 ; j<fieldSize; j++) {
+            for (int j = 0 ; j < fieldSize; j++) {
                 field.setFigure(new Point(j, i), Figure.X);
             }
             assertEquals(Figure.X, winnerController.getWinner(field));
@@ -115,11 +115,11 @@ public class WinnerControllerTest {
     @Test
     public void testGetWinnerWhenNoWinnerCustomColumn() throws Exception {
         final WinnerController winnerController = new WinnerController();
-        int fieldSize = new Random().nextInt(50);
+        int fieldSize = new Random().nextInt(50) + 3;
         for (int i = 0; i < fieldSize; i++) {
             final Field field = new Field(fieldSize);
             field.setFigure(new Point(0, i), Figure.O);
-            for (int j=1 ; j<fieldSize; j++) {
+            for (int j = 1 ; j < fieldSize; j++) {
                 field.setFigure(new Point(j, i), Figure.X);
             }
             assertNull(winnerController.getWinner(field));
@@ -148,9 +148,9 @@ public class WinnerControllerTest {
     @Test
     public void testGetWinnerWhenWinnerCustomDiag1() throws Exception {
         final WinnerController winnerController = new WinnerController();
-        int i = new Random().nextInt(50);
+        int i = new Random().nextInt(50) + 3;
         final Field field = new Field(i);
-        for (int j=0;j<i;j++){
+        for (int j = 0; j < i; j++){
             field.setFigure(new Point(j, j), Figure.O);
         }
         assertEquals(Figure.O, winnerController.getWinner(field));
@@ -159,10 +159,10 @@ public class WinnerControllerTest {
     @Test
     public void testGetWinnerWhenNoWinnerCustomDiag1() throws Exception {
         final WinnerController winnerController = new WinnerController();
-        final int fieldSize = new Random().nextInt(50);
+        final int fieldSize = new Random().nextInt(50) + 3;
         final Field field = new Field(fieldSize);
         field.setFigure(new Point(0, 0), Figure.X);
-        for (int j=1 ; j<fieldSize ; j++){
+        for (int j = 1 ; j < fieldSize ; j++) {
             field.setFigure(new Point(j, j), Figure.O);
         }
         assertNull(winnerController.getWinner(field));
@@ -191,22 +191,22 @@ public class WinnerControllerTest {
     @Test
     public void testGetWinnerWhenWinnerCustomDiag2() throws Exception {
         final WinnerController winnerController = new WinnerController();
-        final int fieldSize = new Random().nextInt(50);
+        final int fieldSize = new Random().nextInt(50) + 3;
         final Field field = new Field(fieldSize);
-        for (int j=0 ; j<fieldSize ; j++){
-            field.setFigure(new Point(fieldSize-1-j, j), Figure.X);
+        for (int j = 0 ; j < fieldSize ; j++) {
+            field.setFigure(new Point(fieldSize - 1 - j, j), Figure.X);
         }
         assertEquals(Figure.X, winnerController.getWinner(field));
     }
 
     @Test
-    public void testGetWinnerWhenNoWinnercustomDiag2() throws Exception {
+    public void testGetWinnerWhenNoWinnerСustomDiag2() throws Exception {
         final WinnerController winnerController = new WinnerController();
-        final int fieldSize = new Random().nextInt(50);
+        final int fieldSize = new Random().nextInt(50) + 3;
         final Field field = new Field(fieldSize);
-        field.setFigure(new Point(0, 0), Figure.O);
-        for (int j=1 ; j<fieldSize ; j++){
-            field.setFigure(new Point(fieldSize-1-j, j), Figure.X);
+        field.setFigure(new Point(0, fieldSize - 1), Figure.O);
+        for (int j = 1 ; j < fieldSize ; j++) {
+            field.setFigure(new Point(fieldSize - 1 - j, j), Figure.X);
         }
         assertNull(winnerController.getWinner(field));
     }
