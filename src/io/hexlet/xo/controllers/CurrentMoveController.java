@@ -25,9 +25,9 @@ public class CurrentMoveController {
 
     private int countFiguresInTheRow(final Field field, final int row) {
         int countFigure = 0;
-        for (int x = 0; x < field.getSize(); x++) {
+        for (int y = 0; y < field.getSize(); y++) {
             try {
-                if (field.getFigure(new Point(x, row)) != null)
+                if (field.getFigure(new Point(row, y)) != null)
                     countFigure++;
             } catch (InvalidPointException e) {
                 e.printStackTrace();
