@@ -19,7 +19,6 @@ public class ConsoleView {
     private final MoveController moveController = new MoveController();
 
     public void show(final Game game) {
-
         System.out.format("Game name: %s\n", game.getName());
         final Field field = game.getField();
         for (int x = 0; x < field.getSize(); x++) {
@@ -80,14 +79,14 @@ public class ConsoleView {
                 e.printStackTrace();
                 throw new RuntimeException(e);
             }
-            System.out.println(figure != null ? figure : " ");
+            System.out.print(figure != null ? figure : " ");
             System.out.print(" ");
         }
         System.out.println();
     }
 
     private void printSeparator() {
-        System.out.println("~~~~~~~~");
+        System.out.println("~~~~~~~~~~~");
     }
 
 }
