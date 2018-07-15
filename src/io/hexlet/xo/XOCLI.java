@@ -8,8 +8,6 @@ import io.hexlet.xo.model.Player;
 import io.hexlet.xo.model.exceptions.InvalidBoardSizeException;
 import io.hexlet.xo.view.ConsoleView;
 
-import java.util.Scanner;
-
 public class XOCLI {
 
     public static void main(final String[] args) {

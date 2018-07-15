@@ -17,6 +17,7 @@ public class ConsoleView {
     private final CurrentMoveController currentMoveController = new CurrentMoveController();
     private final WinnerController winnerController = new WinnerController();
     private final MoveController moveController = new MoveController();
+    private final AIPointGetter aiPointGetter = new AIPointGetter();
 
     public void show(final Game game) {
         System.out.format("Game name: %s\n", game.getName());
@@ -41,8 +42,14 @@ public class ConsoleView {
             System.out.println("No winner and no moves left!");
             return false;
         }
-        System.out.format("Please enter move point for: %s\n", currentFigure);
-        final Point point = askPoint();
+        System.out.format("Now is moving %s\n", currentFigure);
+
+        Point point = null;
+        if (currentFigure == Figure.O) {
+            point = aiPointGetter.getMovePoint(field);
+        } else {
+            point = askPoint();
+        }
         try {
             moveController.applyFigure(field, point, currentFigure);
         } catch (final InvalidPointException | AlreadyOccupiedException e) {
