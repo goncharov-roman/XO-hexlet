@@ -2,13 +2,12 @@ package io.hexlet.xo.controllers;
 
 
 import io.hexlet.xo.model.Field;
-import io.hexlet.xo.model.Figure;
 import io.hexlet.xo.model.Point;
 import io.hexlet.xo.model.exceptions.InvalidPointException;
 
-public class WinnerController {
+public class WinnerController<T> {
 
-    public Figure getWinner(final Field field) {
+    public T getWinner(final Field<T> field) {
         final int fieldSize = field.getSize();
         try {
             for (int i = 0; i < fieldSize; i++)
@@ -31,11 +30,11 @@ public class WinnerController {
         return null;
     }
 
-    private boolean check(final Field field,
+    private boolean check(final Field<T> field,
                           final Point currentPoint,
                           final IPointGenerator pointGenerator) {
-        final Figure currentFigure;
-        final Figure nextFigure;
+        final T currentFigure;
+        final T nextFigure;
         final Point nextPoint = pointGenerator.next(currentPoint);
         try {
             currentFigure = field.getFigure(currentPoint);

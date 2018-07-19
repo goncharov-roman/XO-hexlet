@@ -14,7 +14,7 @@ public class PlayerTest {
         final String inputValue = "Slava";
         final String expectedValue = inputValue;
 
-        final Player player = new Player(inputValue, null);
+        final Player<Figure> player = new Player<>(inputValue, null);
 
         final String actualValue = player.getName();
 
@@ -26,7 +26,7 @@ public class PlayerTest {
         final Figure inputValue = Figure.X;
         final Figure expectedValue = inputValue;
 
-        final Player player = new Player(null, inputValue);
+        final Player<Figure> player = new Player<>(null, inputValue);
 
         final Figure actualValue = player.getFigure();
 

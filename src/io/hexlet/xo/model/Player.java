@@ -1,14 +1,14 @@
 package io.hexlet.xo.model;
 
 
-public class Player {
+public class Player<T> {
 
     private final String name;
 
-    private final Figure figure;
+    private final T figure;
 
     public Player(final String name,
-                  final Figure figure) {
+                  final T figure) {
         this.name = name;
         this.figure = figure;
     }
@@ -17,7 +17,7 @@ public class Player {
         return name;
     }
 
-    public Figure getFigure() {
+    public T getFigure() {
         return figure;
     }
 

@@ -5,10 +5,10 @@ import io.hexlet.xo.model.Figure;
 import io.hexlet.xo.model.Point;
 import io.hexlet.xo.model.exceptions.InvalidPointException;
 
-public class AIPointGetter implements IPointGetter {
+public class AIPointGetter<T> implements IPointGetter<T> {
 
     @Override
-    public Point getMovePoint(final Field field) {
+    public Point getMovePoint(final Field<T> field) {
         Point p00 = new Point(field.getSize() - field.getSize(),field.getSize() - field.getSize());
         Point pMaxMax = new Point(field.getSize() - 1,field.getSize() - 1);
         Point pMax0 = new Point(field.getSize() -1,field.getSize() - field.getSize());
@@ -25,12 +25,12 @@ public class AIPointGetter implements IPointGetter {
         Point[] secondPoint = {p1, p2, p3, p4};
 
         try {
-            final Point succesfullPointX = getSuccessfulCoordinate(field, Figure.X);
+            final Point succesfullPointX = getSuccessfulCoordinate(field, (T) Figure.X);
             if (succesfullPointX != null) {
                 return succesfullPointX;
             }
 
-            final Point succesfullPointO = getSuccessfulCoordinate(field, Figure.O);
+            final Point succesfullPointO = getSuccessfulCoordinate(field, (T) Figure.O);
             if (succesfullPointO != null) {
                 return succesfullPointO;
             }
@@ -52,11 +52,11 @@ public class AIPointGetter implements IPointGetter {
             e.printStackTrace();
         }
 
-        return new RandomPointGetter().getMovePoint(field);
+        return new RandomPointGetter<T>().getMovePoint(field);
 
     }
 
-    private Point getSuccessfulCoordinate(final Field field, final Figure figure) throws InvalidPointException{
+    private Point getSuccessfulCoordinate(final Field<T> field, final T figure) throws InvalidPointException{
         final int row = checkRows(field, figure);
         if (row != 99) {
             for (int i = 0; i < field.getSize(); i++) {
@@ -93,7 +93,7 @@ public class AIPointGetter implements IPointGetter {
         return null;
     }
 
-    private int checkRows(final Field field, final Figure figure) throws InvalidPointException {
+    private int checkRows(final Field<T> field, final T figure) throws InvalidPointException {
         for (int i = 0; i < field.getSize(); i++) {
             int count = 0;
             for (int j = 0; j < field.getSize(); j++) {
@@ -108,7 +108,7 @@ public class AIPointGetter implements IPointGetter {
         return 99;
     }
 
-    private int checkCols(final Field field, final Figure figure) throws InvalidPointException {
+    private int checkCols(final Field<T> field, final T figure) throws InvalidPointException {
         for (int i = 0; i < field.getSize(); i++) {
             int count = 0;
             for (int j = 0; j < field.getSize(); j++) {
@@ -123,7 +123,7 @@ public class AIPointGetter implements IPointGetter {
         return 99;
     }
 
-    private int checkDiags(final Field field, final Figure figure) throws InvalidPointException {
+    private int checkDiags(final Field<T> field, final T figure) throws InvalidPointException {
         int count = 0;
         for (int i = 0; i < field.getSize(); i++) {
             if (field.getFigure(new Point(i, i)) == figure) {

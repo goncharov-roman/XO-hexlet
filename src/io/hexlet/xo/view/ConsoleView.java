@@ -12,16 +12,16 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
-public class ConsoleView {
+public class ConsoleView<T> {
 
-    private final CurrentMoveController currentMoveController = new CurrentMoveController();
-    private final WinnerController winnerController = new WinnerController();
-    private final MoveController moveController = new MoveController();
-    private final AIPointGetter aiPointGetter = new AIPointGetter();
+    private final CurrentMoveController<T> currentMoveController = new CurrentMoveController<>();
+    private final WinnerController<T> winnerController = new WinnerController<>();
+    private final MoveController<T> moveController = new MoveController<>();
+    private final AIPointGetter<T> aiPointGetter = new AIPointGetter<>();
 
-    public void show(final Game game) {
+    public void show(final Game<T> game) {
         System.out.format("Game name: %s\n", game.getName());
-        final Field field = game.getField();
+        final Field<T> field = game.getField();
         for (int x = 0; x < field.getSize(); x++) {
             if (x != 0) {
                 printSeparator();
@@ -30,14 +30,15 @@ public class ConsoleView {
         }
     }
 
-    public boolean move(final Game game) {
-        final Field field = game.getField();
-        final Figure winner = winnerController.getWinner(field);
+    public boolean move(final Game<T> game) {
+        final Field<T> field = game.getField();
+        final T winner = winnerController.getWinner(field);
         if (winner != null) {
             System.out.format("Winner is: %s\n", winner);
             return false;
         }
-        final Figure currentFigure = currentMoveController.currentMove(field);
+
+        final T currentFigure = currentMoveController.currentMove(field);
         if (currentFigure == null) {
             System.out.println("No winner and no moves left!");
             return false;
@@ -73,13 +74,13 @@ public class ConsoleView {
         }
     }
 
-    private void printLine(final Field field, final int x) {
+    private void printLine(final Field<T> field, final int x) {
         for (int y = 0; y < field.getSize(); y++) {
             if (y != 0) {
                 System.out.print("|");
             }
             System.out.print(" ");
-            final Figure figure;
+            final T figure;
             try {
                 figure = field.getFigure(new Point(x, y));
             } catch (final InvalidPointException e) {

@@ -16,25 +16,24 @@ public class XOCLI {
         final String name1 = "Player_1";
         final String name2 = "Player_2";
 
-        final Player[] players = new Player[2];
-        players[0] = new Player(name1, Figure.X);
-        players[1] = new Player(name2, Figure.O);
+        final Player<Figure>[] players = new Player[2];
+        players[0] = new Player<>(name1, Figure.X);
+        players[1] = new Player<>(name2, Figure.O);
 
-        Field field = null;
+        Field<Figure> field = null;
         try {
-            field = new Field(fieldSize);
+            field = new Field<>(fieldSize);
         } catch (InvalidBoardSizeException e){
             e.printStackTrace();
         }
-        final Game gameXO = new Game(players, field, "XO");
-        final ConsoleView consoleView = new ConsoleView();
+        final Game<Figure> gameXO = new Game<>(players, field, "XO");
+        final ConsoleView<Figure> consoleView = new ConsoleView<>();
 
         consoleView.show(gameXO);
         while (consoleView.move(gameXO)) {
             consoleView.show(gameXO);
         }
     }
-
 
 }
 

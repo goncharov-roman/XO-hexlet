@@ -6,12 +6,12 @@ import io.hexlet.xo.model.exceptions.InvalidPointException;
 
 import java.util.Random;
 
-public class RandomPointGetter implements IPointGetter {
+public class RandomPointGetter<T> implements IPointGetter<T> {
 
     private static final Random random = new Random();
 
     @Override
-    public Point getMovePoint(final Field field) {
+    public Point getMovePoint(final Field<T> field) {
         Point result = getRandomPoint();
         try {
             while (field.getFigure(result) != null) {
